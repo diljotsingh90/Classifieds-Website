@@ -2,18 +2,10 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
-const { Sequelize } = require("sequelize"); // mysql database related
-const sequelize = new Sequelize("classifieds", "root", "admin", {
-  host: "localhost",
-  dialect: "mysql",
-});
-sequelize
-  .authenticate()
-  .then(() => console.log("Connection has been established successfully."))
-  .catch((error) => {
-    console.log("Unable to connect to the database:", error);
-    /* throw new Error(error); */
-  });
+const sequelize = require("./util/database");
+const User =require("./models/user")
+
+
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -30,6 +22,27 @@ app.use((req, res, next) => {
   });
 });
 
+User
+
+sequelize
+  .authenticate()
+  .then(() => console.log("Connection has been established successfully."))
+  .catch((error) => {
+    console.log("Unable to connect to the database:", error);
+    /* throw new Error(error); */
+  });
+  sequelize
+  .sync({force:true})
+ // .sync()
+  .then(()=>{
+    app.listen(3000);
+  })
+  .catch(err => {
+    
+    console.log(err);
+    throw err;
+});
+
 app.use((error, req, res, next) => {
   console.log(error);
 
@@ -37,5 +50,3 @@ app.use((error, req, res, next) => {
     pageTitle: "Error 500",
   });
 });
-
-app.listen(3000);
