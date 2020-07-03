@@ -4,11 +4,22 @@
     <a <% if( pageTitle==="Posts"){ %>class= "active" <% } %> href="/">Home</a>
     </li>
     <li class="nav-bar-item">
-      <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/newUser">SignUp</a>
+      <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/signUp">SignUp</a>
     </li>
-    <li  class="nav-bar-item">
-      <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="#">Log In</a>
-    </li>
+    <% if(typeof user === 'undefined') {%>
+      
+      <li class="nav-bar-item">
+        <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="/auth/LogIn">Log In</a>
+      </li> 
+      <%} else {%>
+    <li class="nav-bar-item">
+      <a href="/auth/logOut">Log Out</a>
+    </li> 
+    <li class="nav-bar-item">
+      <a>Welcome back, <%=user.username%></a>
+    </li> 
+ 
+<% } %>
   </ul>
   <ul class="nav-bar-list-small">
       <button id="menu-toggle">
@@ -21,11 +32,22 @@
       <a <% if( pageTitle==="Posts"){ %>class= "active"<% } %>  href="/">Home</a>
     </li>
     <li class="nav-bar-item">
-      <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/newUser">SignUp</a>
+      <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/signUp">SignUp</a>
     </li>
-    <li class="nav-bar-item">
-      <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="#">Log In</a>
-    </li> 
+    <% if(typeof user === 'undefined') {%>
+      
+        <li class="nav-bar-item">
+          <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="/auth/LogIn">Log In</a>
+        </li> 
+        <%} else {%>
+      <li class="nav-bar-item">
+        <a href="/auth/logOut">Log Out</a>
+      </li> 
+      <li class="nav-bar-item">
+        <a>Welcome back, <%=user.username%></a>
+      </li> 
+   
+  <% } %>
   </div>
   </ul>
 </div>
