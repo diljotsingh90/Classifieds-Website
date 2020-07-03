@@ -18,12 +18,24 @@ sequelize
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
+const authRoutes = require("./routes/auth");
+const postRoutes = require("./routes/post");
+
+app.use("/auth", authRoutes);
+app.use(postRoutes);
+
 app.use((req, res, next) => {
-  res.render("error404");
+  res.render("error404", {
+    pageTitle: "Error 404",
+  });
 });
 
 app.use((error, req, res, next) => {
-  res.render("error500");
+  console.log(error);
+
+  res.status(500).render("error500", {
+    pageTitle: "Error 500",
+  });
 });
 
-app.listen(8000);
+app.listen(3000);

@@ -1,6 +1,6 @@
 * {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
@@ -18,8 +18,8 @@ body {
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .notfound {
@@ -37,7 +37,7 @@ body {
 }
 
 .notfound .notfound-404 h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 236px;
   font-weight: 200;
   margin: 0px;
@@ -47,17 +47,17 @@ body {
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .notfound .notfound-404 h2 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 28px;
   font-weight: 400;
   text-transform: uppercase;
   color: #211b19;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.7);
   padding: 10px 5px;
   margin: auto;
   display: inline-block;
@@ -68,7 +68,7 @@ body {
 }
 
 .notfound a {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   display: inline-block;
   font-weight: 700;
   text-decoration: none;
