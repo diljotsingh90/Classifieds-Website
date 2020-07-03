@@ -1,13 +1,13 @@
 <div class="nav-bar">
   <ul class="nav-bar-list">
     <li class="nav-bar-item">
-      <a active href="/">Home</a>
+    <a <% if( pageTitle==="Posts"){ %>class= "active" <% } %> href="/">Home</a>
     </li>
     <li class="nav-bar-item">
-      <a href="auth/newUser">SignUp</a>
+      <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/newUser">SignUp</a>
     </li>
-    <li class="nav-bar-item">
-      <a href="#">Log in</a>
+    <li  class="nav-bar-item">
+      <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="#">Log In</a>
     </li>
   </ul>
   <ul class="nav-bar-list-small">
@@ -18,13 +18,13 @@
   <div id="side-bar" class="side-bar">
    <ul class="nav-bar-mobile-list">
     <li class="nav-bar-item">
-      <a active href="/">Home</a>
+      <a <% if( pageTitle==="Posts"){ %>class= "active"<% } %>  href="/">Home</a>
     </li>
     <li class="nav-bar-item">
-      <a href="auth/newUser">SignUp</a>
+      <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/newUser">SignUp</a>
     </li>
     <li class="nav-bar-item">
-      <a href="#">Log in</a>
+      <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="#">Log In</a>
     </li> 
   </div>
   </ul>

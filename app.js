@@ -2,14 +2,15 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
+
 const sequelize = require("./util/database");
 const User =require("./models/user")
-
 
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
+// all routes
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
 
