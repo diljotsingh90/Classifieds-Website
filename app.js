@@ -11,13 +11,13 @@ sequelize
   .authenticate()
   .then(() => console.log("Connection has been established successfully."))
   .catch((error) => {
-    console.log("Unable to connect to the database:", error);
-    /* throw new Error(error); */
+    throw new Error(error);
   });
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
+// all routes
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
 
