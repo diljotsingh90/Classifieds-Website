@@ -7,8 +7,19 @@
     <%- include("../include/navigation") %>
     <div class="posts">
       <% posts.forEach(post=>{ %>
-        
-          <a class="card" href="/post/<%= post.id %> ">
+       
+          <div class="card" >
+            <form action="/edit/<%= post.id %>">
+            <button class="edit" type="submit">
+              <i class="fa fa-pencil-alt fa-2x"></i>
+            </button>
+          </form>
+          <form action="/delete/<%= post.id %>">
+            <button class="delete" type="submit">
+              <i class="fa fa-trash-alt fa-2x"></i>
+            </button>
+          </form>
+            <a href="/post/<%= post.id %> ">
           <div class="leading">
             <img src="<%= post.imageUrl%>" alt="<%= post.title %> ">
             
@@ -26,7 +37,8 @@
             <p class="desc"><%= post.description.substring(0,Math.min(130,post.description.length )) %> </p>
           </div>
         </a>
-          
+        </div>
+      
       <% }) %> 
     
     </div>

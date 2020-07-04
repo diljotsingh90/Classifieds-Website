@@ -1,5 +1,6 @@
 const form = document.getElementById("form");
 const username = document.getElementById("username");
+const mobile = document.getElementById("mobile");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const password2 = document.getElementById("password2");
@@ -78,19 +79,28 @@ function checkPasswordsMatch(input1, input2) {
 function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
+function checkMobileNo(input) {
+  const number = +input.value;
+  if (Number.isInteger(number) && input.value.length == 10) {
+    showSuccess(input);
+    return true;
+  }
+  showError(input, "Not a valid mobile no.");
 
+  return false;
+}
 // Event listeners
-function submitForm() {
+function submitForm(e) {
   e.preventDefault();
   let val = true;
-  val = val && checkRequired([username, email, password, password2]);
-  val = val && checkLength(username, 3, 15);
-  val = val && checkLength(password, 6, 25);
-  val = val && checkEmail(email);
-  val = val && checkPasswordsMatch(password, password2);
-  console.log(val);
-
+  val = checkRequired([username, email, password, password2]) && val;
+  val = checkMobileNo(mobile) && val;
+  val = checkLength(username, 3, 15) && val;
+  val = checkLength(password, 6, 25) && val;
+  val = checkEmail(email) && val;
+  val = checkPasswordsMatch(password, password2) && val;
   if (val === true) {
     form.submit();
   }
 }
+sButton.addEventListener("click", submitForm);

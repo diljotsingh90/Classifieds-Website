@@ -13,6 +13,7 @@ module.exports.postSignUp = async (req, res, next) => {
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
+  const mobile = req.body.mobile;
   let id;
   let idExists;
   const duplicateEmail = await User.findOne({
@@ -26,7 +27,7 @@ module.exports.postSignUp = async (req, res, next) => {
     });
   }
   do {
-    id = Math.random() * 1000000000;
+    id = Math.floor(Math.random() * 1000000000);
     idExists = await User.findByPk(id);
   } while (idExists);
   const hashedpassword = await bcrypt.hash(password, 12);
@@ -35,9 +36,10 @@ module.exports.postSignUp = async (req, res, next) => {
     username: username,
     password: hashedpassword,
     email: email,
+    mobile: mobile,
   })
     .then((result) => {
-      return res.redirect("/");
+      return res.redirect("/auth/logIn");
     })
     .catch((err) => next(err));
 };

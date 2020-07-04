@@ -1,23 +1,26 @@
 <div class="nav-bar">
   <ul class="nav-bar-list">
     <li class="nav-bar-item">
-    <a <% if( pageTitle==="Posts"){ %>class= "active" <% } %> href="/">Home</a>
+    <a <% if( pageTitle==="Home"){ %>class= "active" <% } %> href="/">Home</a>
     </li>
     <li class="nav-bar-item">
-      <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/signUp">SignUp</a>
-    </li>
+      <a <% if( pageTitle==="Create Post"){ %>class= "active" <% } %> href="/create">Create Post</a>
+      </li>
     <% if(typeof user === 'undefined') {%>
-      
       <li class="nav-bar-item">
         <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="/auth/LogIn">Log In</a>
       </li> 
+      <li class="nav-bar-item">
+        <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/signUp">SignUp</a>
+      </li>
+      
       <%} else {%>
     <li class="nav-bar-item">
       <a href="/auth/logOut">Log Out</a>
     </li> 
     <li class="nav-bar-item">
-      <a>Welcome back, <%=user.username%></a>
-    </li> 
+      <a <% if( pageTitle==="User's Zone"){ %>class= "active" <% } %> href="/mine"><%= user.username %>'s Zone </a>
+      </li>
  
 <% } %>
   </ul>
@@ -29,24 +32,26 @@
   <div id="side-bar" class="side-bar">
    <ul class="nav-bar-mobile-list">
     <li class="nav-bar-item">
-      <a <% if( pageTitle==="Posts"){ %>class= "active"<% } %>  href="/">Home</a>
+      <a <% if( pageTitle==="Home"){ %>class= "active"<% } %>  href="/">Home</a>
     </li>
     <li class="nav-bar-item">
-      <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/signUp">SignUp</a>
-    </li>
+      <a <% if( pageTitle==="Create Post"){ %>class= "active" <% } %> href="/create">Create Post</a>
+      </li>
     <% if(typeof user === 'undefined') {%>
-      
-        <li class="nav-bar-item">
-          <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="/auth/LogIn">Log In</a>
-        </li> 
+      <li class="nav-bar-item">
+        <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="/auth/LogIn">Log In</a>
+      </li> 
+      <li class="nav-bar-item">
+        <a <% if( pageTitle==="SignUp"){ %>class= "active"<% }%> href="/auth/signUp">SignUp</a>
+      </li>
+        
         <%} else {%>
       <li class="nav-bar-item">
         <a href="/auth/logOut">Log Out</a>
       </li> 
       <li class="nav-bar-item">
-        <a>Welcome back, <%=user.username%></a>
-      </li> 
-   
+        <a <% if( pageTitle==="User's Zone"){ %>class= "active" <% } %> href="/mine"><%= user.username %>'s Zone </a>
+        </li>
   <% } %>
   </div>
   </ul>

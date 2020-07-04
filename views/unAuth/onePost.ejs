@@ -1,0 +1,35 @@
+<%- include("../include/head") %>
+    
+     <link rel="stylesheet" href="/css/onePostStyle.css" /> 
+  </head>
+
+  <body>
+    <%- include("../include/navigation") %>
+    <div class="post-item">
+            <img src="<%= post.imageUrl%>" alt="<%= post.title %> ">
+           
+            <h2 class="post-title">
+              <%= post.title %> 
+            </h2>
+            <small><%=post.createdAt %> </small>
+            <p class="post-price">
+              ₹ <%= post.price %> 
+            </p>
+            <p class="desc"><%= post.description %> </p>
+            
+            <div class="card">
+            <p class="location-p">
+              <i class="fa fa-map-marker-alt fa-1x"></i>  <%= post.location %> 
+              </p>
+              <small>Category: <%= post.category %> </small>
+            </div>
+            <div class="card">
+            <small><%= post.id %> </small>
+            <p>By: <%= post.username %> </p>
+            <p>+91-8888888888</p>
+          </div>
+            
+    
+    </div>
+    
+    <%- include("../include/ending") %>

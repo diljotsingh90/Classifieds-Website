@@ -1,0 +1,15 @@
+.post-item {
+  border: 2px solid teal;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 30px 30px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+img {
+  max-width: 90%;
+  object-fit: scale-down;
+}
