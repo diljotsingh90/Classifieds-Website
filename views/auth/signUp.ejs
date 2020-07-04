@@ -15,13 +15,18 @@
           <input type="text" name="username" id="username" placeholder="Enter username" />
           <small>Error message</small>
         </div>
+        <div class="form-control">
+          <label for="mobile">Mobile No.</label>
+          <input type="tel" name="mobile" id="mobile" placeholder="Enter mobile number" />
+          <small>Error message</small>
+        </div>
       <div  <% if(error!==""){%>class="form-control error"  <% } else { %> class="form-control" <% } %>>
           <label for="email">Email</label>
           <input type="text" id="email" name="email" placeholder="Enter email" />
-       </small> 
+       
        <small> <% if(error!==""){%><%= error %><% } else {%>Error message<% } %></small>
-          
-        </div>
+      </div> 
+       
         <div class="form-control">
           <label for="password">Password</label>
           <input type="password" id="password" 
@@ -37,7 +42,7 @@
           />
           <small>Error message</small>
         </div>
-        <button onclick="submitForm()" id="submit-btn">Submit</button>
+        <button id="submit-btn">Submit</button>
       </form>
     </div>
     <script src="/js/signUpscript.js"></script>

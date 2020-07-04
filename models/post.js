@@ -1,28 +1,36 @@
 const { Sequelize } = require("sequelize"); // mysql database related
 const sequelize = require("../util/database");
 
-const User = sequelize.define("user", {
+const Post = sequelize.define("post", {
   id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
   },
-  username: {
+  title: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  email: {
+  category: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  mobile: {
-    type: Sequelize.BIGINT(10),
+  description: {
+    type: Sequelize.STRING,
     allowNull: false,
   },
-  password: {
+  location: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  imageUrl: {
     type: Sequelize.STRING,
     allowNull: false,
   },
 });
 
-module.exports = User;
+module.exports = Post;

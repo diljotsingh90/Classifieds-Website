@@ -5,6 +5,7 @@ const bodyparser = require("body-parser");
 
 const sequelize = require("./util/database");
 const User = require("./models/user");
+const Post = require("./models/post");
 
 var session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
@@ -44,7 +45,7 @@ app.use((req, res, next) => {
 
     return next();
   }
-  console.log(JSON.stringify(req.session));
+  /* console.log(JSON.stringify(req.session)); */
 
   User.findByPk(req.session.user.id)
     .then((user) => {
@@ -52,7 +53,7 @@ app.use((req, res, next) => {
         return next();
       }
       req.user = user;
-      console.log(req.user);
+      /* console.log(req.user); */
 
       next();
     })
@@ -74,7 +75,11 @@ app.use((req, res, next) => {
 });
 
 User;
-
+Post;
+User.hasMany(Post, {
+  onDelete: "cascade",
+});
+Post.belongsTo(User);
 sequelize
   .authenticate()
   .then(() => console.log("Connection has been established successfully."))
@@ -84,7 +89,7 @@ sequelize
   });
 
 sequelize
-  //  .sync({force:true})
+  //\\.sync({ force: true })
   .sync()
   .then(() => {
     app.listen(3000);
