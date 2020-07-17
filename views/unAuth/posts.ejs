@@ -15,7 +15,7 @@
             <% if(typeof user !== 'undefined') {%>
               <button class="fav <% if (post.isfav) { %>
                isfav
-              <% } %>"onclick="toggleFav(<%= post.id %>,this)" class="fav-btn">
+              <% } %>"onclick="toggleFav('<%= csrfToken %>',<%= post.id %>,this)" class="fav-btn">
                 <i class="fa fa-heart fa-1x"></i>
               </button>
             
