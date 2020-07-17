@@ -10,8 +10,7 @@ body {
 }
 
 .nav-bar {
-  width: 100vw;
-
+  width: 100%;
   display: block;
 }
 .nav-bar-list,
@@ -49,6 +48,57 @@ body {
   font-weight: 500;
   text-decoration: none;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    background: transparent;
+}
+.nav-bar-item input {
+  color: white;
+  font-weight: 500;
+  background: transparent;
+  padding: 10px 20px;
+  padding-right: 40px;
+  border-radius: 40px;
+  font-family: "Motserrat",sans-serif;
+  border: solid 1px white;
+}
+.nav-bar-item .search{
+  position: relative;
+}
+#search-btn{
+  position: absolute;
+  right: 5px;
+  padding: 0;
+  top: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+#clear-btn{
+  color: rgb(196, 196, 196);
+  position: absolute;
+  right: 25px;
+  top: 7px;
+  font-weight: 600;
+}
+#search-btn i:hover{
+  transform: scale(1.2);
+}
+#search-btn:focus{
+  outline: none;
+}
+.nav-bar-item input:focus{
+  outline: none;
+}
+
+.nav-bar-item input::placeholder{
+  color: rgb(209, 202, 202);
+  font-weight: 300;
+}
 a.active {
   padding: 10px 20px;
   border-radius: 40px;
@@ -56,9 +106,6 @@ a.active {
 }
 .nav-bar-item a:hover {
   font-weight: 600;
-}
-
-.nav-bar-item:hover {
   transform: scale(1.2);
 }
 
@@ -66,7 +113,7 @@ a.active {
   transform: translate(-100%);
   position: absolute;
   height: 100%;
-  z-index: 3;
+  z-index: 100;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
@@ -89,7 +136,7 @@ a.active {
 .side-bar.show {
   transform: none;
 }
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .nav-bar-list {
     display: none;
   }

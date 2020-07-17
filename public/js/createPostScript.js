@@ -1,7 +1,10 @@
 const formValue = document.getElementById("form");
 const titleValue = document.getElementById("title");
 const descriptionValue = document.getElementById("description");
-const locationValue = document.getElementById("location");
+const areaValue = document.getElementById("area");
+const countrysel = document.getElementById("country-select");
+const statesel = document.getElementById("state-select");
+const citysel = document.getElementById("city-select");
 const priceValue = document.getElementById("price");
 const categoryValue = document.getElementById("category");
 const imageUrlValue = document.getElementById("imageUrl");
@@ -48,6 +51,20 @@ function checkLength(input, min, max) {
     return true;
   }
 }
+function checkImagesLength(input,length){
+  
+  if (input.files.length == 0) {
+    showError(input, "Select atleast 1 image.");
+    return false;
+  }
+  if (input.files.length > length) {
+    showError(input, "Can upload atmost 3 images.");
+    return false;
+  } else {
+    showSuccess(input);
+    return true;
+  }
+}
 
 // Get fieldname
 function getFieldName(input) {
@@ -56,13 +73,13 @@ function getFieldName(input) {
 
 // Event listeners
 submitButton.addEventListener("click", submitForm);
-const geo = navigator.geolocation;
+/* const geo = navigator.geolocation;
 geo.getCurrentPosition(
   (loc) => {
     console.log(loc);
   },
   (err) => console.log(err)
-);
+); */
 function submitForm(e) {
   e.preventDefault();
   val = checkRequired([
@@ -70,11 +87,14 @@ function submitForm(e) {
     categoryValue,
     priceValue,
     descriptionValue,
-    locationValue,
-    imageUrlValue,
+    citysel,
+    statesel,
+    countrysel,
+    areaValue
   ]);
   val = checkLength(titleValue, 5, 120) && val;
   val = checkLength(descriptionValue, 20, 5000) && val;
+  val = checkImagesLength(imageUrlValue,3)  && val;
   if (val) {
     form.submit();
   }
@@ -88,3 +108,81 @@ function submitForm(e) {
     "https://img.gkbcdn.com/p/2015-11-10/oneplus-x-standard-5-0inch-fhd-1920-1080-4g-lte-android-5-1-3gb-16gb-smartphone-snapdragon-801-quad-core-13-0mp-camera---white-1571987892427._w500_.jpg"; 
   form.submit();*/
 }
+const bearer =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJkaWxqb3R3YWRpYTkzOEBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ1VnQ0WlZMODAwZXhKV05QMHd6TnpOSkFxTmVhbS1Eai1DdUwxRDNDRFZIcGphVGgtOWVGSmRRQk5LdF9oX2RtUHVVIn0sImV4cCI6MTU5NTAwMzg0MX0.XjHpkmrbRBXCHE4xvmButLZ2LZUjX9vJ0pbHH7Xe4GU";
+
+const getCountries = async () => {
+  const result = await fetch(
+    "https://www.universal-tutorial.com/api/countries",
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + bearer,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const countries= await result.json();
+  countries.forEach((country)=>{
+    const option = document.createElement("option");
+    option.innerHTML=country.country_name;
+    option.setAttribute("value",country.country_name);
+    countrysel.appendChild(option);
+  });
+};
+const getStates = async (state) => {
+  const result = await fetch(
+    "https://www.universal-tutorial.com/api/states/"+state,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + bearer,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const states= await result.json();
+  states.forEach((state)=>{
+    const option = document.createElement("option");
+    option.innerHTML=state.state_name;
+    option.setAttribute("value",state.state_name);
+    statesel.appendChild(option);
+  });
+};
+
+window.onload = (event) => {
+  getCountries();
+};
+const getCities = async (city) => {
+  const result = await fetch(
+    "https://www.universal-tutorial.com/api/cities/"+city,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + bearer,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const cities= await result.json();
+  cities.forEach((city)=>{
+    const option = document.createElement("option");
+    option.innerHTML=city.city_name;
+    option.setAttribute("value",city.city_name);
+    citysel.appendChild(option);
+  });
+};
+
+window.onload = (event) => {
+  getCountries();
+};
+
+countrysel.addEventListener("change",()=>{
+  statesel.innerHTML = `<option value="">Please Select State</option>`;
+  citysel.innerHTML = `<option value="">Please Select City</option>`;
+  getStates(countrysel.value);
+})
+statesel.addEventListener("change",()=>{
+  citysel.innerHTML = `<option value="">Please Select City</option>`;
+  getCities(statesel.value);
+})

@@ -1,7 +1,11 @@
+const h2 = document.querySelector("h2");
 const form = document.getElementById("form");
+console.log(h2);
+h2.addEventListener("click",()=>{
+    form.classList.toggle("show");
+})
 const username = document.getElementById("username");
 const mobile = document.getElementById("mobile");
-const email = document.getElementById("email");
 const password = document.getElementById("password");
 const password2 = document.getElementById("password2");
 const sButton = document.getElementById("submit-btn");
@@ -20,16 +24,7 @@ function showSuccess(input) {
 }
 
 // Check email is valid
-function checkEmail(input) {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (re.test(input.value.trim())) {
-    showSuccess(input);
-    return true;
-  } else {
-    showError(input, "Email is not valid");
-    return false;
-  }
-}
+
 
 // Check required fields
 function checkRequired(inputArr) {
@@ -93,41 +88,12 @@ function checkMobileNo(input) {
 function submitForm(e) {
   e.preventDefault();
   let val = true;
-  val = checkRequired([username, email, password, password2]) && val;
+  val = checkRequired([username,]) && val;
   val = checkMobileNo(mobile) && val;
   val = checkLength(username, 3, 15) && val;
-  val = checkLength(password, 6, 25) && val;
-  val = checkEmail(email) && val;
   val = checkPasswordsMatch(password, password2) && val;
   if (val === true) {
     form.submit();
   }
 }
 sButton.addEventListener("click", submitForm);
-
-async function onSignIn (googleUser) {
-  const idToken =googleUser.getAuthResponse().id_token;
-
-  var profile = googleUser.getBasicProfile();
-  
-  const name = profile.getName();
-  
- const email = profile.getEmail();
-  
-   try{ result = await fetch("/auth/logIn",{
-    method:"POST",
-    headers:{
-      'Content-Type': 'application/json',
-    },
-    body:JSON.stringify({
-      "googleIdToken":idToken,
-      "username":name,
-      "email":email,
-    })
-  });
-  window.location.replace("/");
-}
-catch(err){
-  console.log(err);
-}
-}

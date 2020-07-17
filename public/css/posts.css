@@ -18,12 +18,16 @@
 .card a {
   display: flex;
   text-decoration: none;
-  overflow: auto;
+  overflow: hidden;
+}
+.leading{
+  overflow: hidden;
 }
 .leading img {
   max-width: 350px;
   max-height: 250px;
   object-fit: scale-down;
+  overflow: hidden;
 }
 .card {
   text-decoration: none;
@@ -56,6 +60,28 @@
 .fa-map-marker-alt {
   padding-right: 10px;
 }
+.fav {
+  z-index: 0;
+  bottom: 5%;
+  left: 5%;
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  padding: 10px;
+  
+  cursor: pointer;
+  border: none;
+}
+.fav i{
+  transform: translate(-5%,10%);
+}
+.isfav{
+  color: teal;
+}
+.fav:focus{
+  outline: none;
+}
 @media (max-width: 550px) {
   .leading img {
     max-width: 180px;
@@ -87,9 +113,11 @@
   border-radius: 50%;
   padding: 2%;
   border: none;
+  cursor: pointer;
 }
 
 .delete {
+  cursor: pointer;
   bottom: 5%;
   left: 5%;
   z-index: 0;
@@ -102,4 +130,24 @@
 }
 .card button:active {
   outline: none;
+}
+.profile-box{
+  margin: 20px 20vw;
+  display: flex;
+  flex-direction: column;
+}
+.profile-box input{
+  width: 100%;
+  padding: 5px 10px;
+  margin: 10px 0;
+}
+h2{
+  cursor: pointer;
+  padding-top: 30px;
+}
+#form{
+  display: none;
+}
+#form.show{
+  display: block;
 }

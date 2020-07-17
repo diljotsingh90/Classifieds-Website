@@ -1,12 +1,16 @@
 <%- include("../include/head") %>
 <link rel="stylesheet" href="/css/signUpstyle.css" />
     <!-- <link type="text/css" rel="stylesheet" href="css/error404style.css" /> -->
+    <link type="text/css" rel="stylesheet" href="css/posts.css" /> 
+    <meta name="google-signin-client_id" content="401985229551-dqpv5920kik69iefs4scrdnns5p0kh5a.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
   </head>
 
   <body>
-    <header>
+    
     <%- include("../include/navigation") %>
-  </header>
+  
     <div class="container">
       <form id="form" class="form" action="./SignUp" method="POST">
         <h2>Register With Us</h2>
@@ -44,6 +48,10 @@
         </div>
         <button id="submit-btn">Submit</button>
       </form>
+    </div>
+    <div class="google-container">
+      <h2>or</h2>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
     <script src="/js/signUpscript.js"></script>
     <%- include("../include/ending") %>

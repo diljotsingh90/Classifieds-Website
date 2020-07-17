@@ -1,15 +1,86 @@
 .post-item {
   border: 2px solid teal;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 20px 20px;
   margin: 30px 30px;
   max-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  position: relative;
+  text-align: left;
 }
 img {
-  max-width: 90%;
+  width: 100%;
+  max-width: 700px;
   object-fit: scale-down;
+}
+.fav {
+  z-index: 0;
+  top: 10%;
+  right: 10%;
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  padding: 2%;
+  
+  cursor: pointer;
+  border: none;
+}
+
+.fav i{
+  transform: translate(-5%,10%);
+}
+.isfav{
+  color: teal;
+}
+.fav:focus{
+  outline: none;
+}
+.row{
+  display: flex;
+  margin: 0;
+}
+.image-carousel{
+  flex-direction: row;
+}
+.item{
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+}
+.item.active{
+  width: 100%;
+  width: 100%;
+  
+  display: inline-block;
+}
+.post-title{
+  flex: 50%;
+}
+
+.post-price{
+  text-align: right;
+  font-weight: 600;
+  color: teal;
+  width: max-content;
+  flex: 50%;
+}
+.post-item small{
+  margin: 0;
+  padding: 0;
+}
+.card {
+  border: 0px solid teal;
+  border-radius: 2px;
+  padding: 10px 10px;
+  
+}
+hr{
+  z-index: 100;
+  color: teal;
+  background-color: teal;
+  background-origin: 1px solid teal;
 }

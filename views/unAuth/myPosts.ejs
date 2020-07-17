@@ -1,11 +1,51 @@
 <%- include("../include/head") %>
     
      <link type="text/css" rel="stylesheet" href="css/posts.css" /> 
+     <link type="text/css" rel="stylesheet" href="css/signUpstyle.css" /> 
   </head>
 
   <body>
     <%- include("../include/navigation") %>
+    <div class="container">
+      <h2>Edit My Profile</h2>
+      <form id="form" class="form" action="/changecredentials" method="POST">
+       
+        <div class="form-control">
+          <input type="hidden" name="userId" value="<%= user.id %>">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" placeholder="Enter username" value="<%= user.username %>" />
+          <small>Error message</small>
+        </div>
+        <div class="form-control">
+          <label for="mobile">Mobile No.</label>
+          <input type="tel" name="mobile" id="mobile" placeholder="Enter mobile number" value="<%= user.mobile %>"/>
+          <small>Error message</small>
+        </div>
+      
+       
+        <div class="form-control">
+          <label for="password">New Password</label>
+          <input type="password" id="password" 
+          name="password"  placeholder="Enter password" />
+          <small>Error message</small>
+        </div>
+        <div class="form-control">
+          <label for="password2">Retype New Password</label>
+          <input
+            type="password"
+            id="password2" 
+            placeholder="Enter password again"
+          />
+          <small>Error message</small>
+        </div>
+        <button id="submit-btn">Submit</button>
+      </form>
+    </div>
+    
     <div class="posts">
+      <% if (posts.length==0) { %>
+        <p>No Posts found</p>
+       <% } else { %>
       <% posts.forEach(post=>{ %>
        
           <div class="card" >
@@ -21,7 +61,7 @@
           </form>
             <a href="/post/<%= post.id %> ">
           <div class="leading">
-            <img src="<%= post.imageUrl%>" alt="<%= post.title %> ">
+            <img src="/<%= post.imageUrl[0]%>" alt="<%= post.title %>">
             
           </div>
           <div class="trailing">
@@ -29,7 +69,10 @@
               <%= post.title %> 
             </h2>
             <p class="location-p">
-            <i class="fa fa-map-marker-alt fa-1x"></i>  <%= post.location %> 
+            <i class="fa fa-map-marker-alt fa-1x"></i>  <%= post.area %>,
+            <%= post.city %>,
+            <%= post.state %>,
+            <%= post.country %>. 
             </p>
             <small class="post-price">
               ₹ <%= post.price %> 
@@ -39,7 +82,7 @@
         </a>
         </div>
       
-      <% }) %> 
-    
+      <% }) }%> 
+    <script src="/js/myPosts.js"></script>
     </div>
     <%- include("../include/ending") %>
