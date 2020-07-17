@@ -51,8 +51,7 @@ function checkLength(input, min, max) {
     return true;
   }
 }
-function checkImagesLength(input,length){
-  
+function checkImagesLength(input, length) {
   if (input.files.length == 0) {
     showError(input, "Select atleast 1 image.");
     return false;
@@ -90,27 +89,17 @@ function submitForm(e) {
     citysel,
     statesel,
     countrysel,
-    areaValue
+    areaValue,
   ]);
   val = checkLength(titleValue, 5, 120) && val;
   val = checkLength(descriptionValue, 20, 5000) && val;
-  val = checkImagesLength(imageUrlValue,3)  && val;
+  val = checkImagesLength(imageUrlValue, 3) && val;
   if (val) {
     form.submit();
   }
-  /* 
-  titleValue.value = "One Plus x";
-  categoryValue.value = "Cell Phones";
-  priceValue.value = 100;
-  descriptionValue.value = "3 years old good condition.";
-  locationValue.value = "Sardar Nagar, Moga.";
-  imageUrlValue.value =
-    "https://img.gkbcdn.com/p/2015-11-10/oneplus-x-standard-5-0inch-fhd-1920-1080-4g-lte-android-5-1-3gb-16gb-smartphone-snapdragon-801-quad-core-13-0mp-camera---white-1571987892427._w500_.jpg"; 
-  form.submit();*/
+  
 }
-const bearer =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJkaWxqb3R3YWRpYTkzOEBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ1VnQ0WlZMODAwZXhKV05QMHd6TnpOSkFxTmVhbS1Eai1DdUwxRDNDRFZIcGphVGgtOWVGSmRRQk5LdF9oX2RtUHVVIn0sImV4cCI6MTU5NTAwMzg0MX0.XjHpkmrbRBXCHE4xvmButLZ2LZUjX9vJ0pbHH7Xe4GU";
-
+const bearer =document.getElementById("citytoken").value.toString();
 const getCountries = async () => {
   const result = await fetch(
     "https://www.universal-tutorial.com/api/countries",
@@ -122,17 +111,17 @@ const getCountries = async () => {
       },
     }
   );
-  const countries= await result.json();
-  countries.forEach((country)=>{
+  const countries = await result.json();
+  countries.forEach((country) => {
     const option = document.createElement("option");
-    option.innerHTML=country.country_name;
-    option.setAttribute("value",country.country_name);
+    option.innerHTML = country.country_name;
+    option.setAttribute("value", country.country_name);
     countrysel.appendChild(option);
   });
 };
 const getStates = async (state) => {
   const result = await fetch(
-    "https://www.universal-tutorial.com/api/states/"+state,
+    "https://www.universal-tutorial.com/api/states/" + state,
     {
       headers: {
         Accept: "application/json",
@@ -141,11 +130,11 @@ const getStates = async (state) => {
       },
     }
   );
-  const states= await result.json();
-  states.forEach((state)=>{
+  const states = await result.json();
+  states.forEach((state) => {
     const option = document.createElement("option");
-    option.innerHTML=state.state_name;
-    option.setAttribute("value",state.state_name);
+    option.innerHTML = state.state_name;
+    option.setAttribute("value", state.state_name);
     statesel.appendChild(option);
   });
 };
@@ -155,7 +144,7 @@ window.onload = (event) => {
 };
 const getCities = async (city) => {
   const result = await fetch(
-    "https://www.universal-tutorial.com/api/cities/"+city,
+    "https://www.universal-tutorial.com/api/cities/" + city,
     {
       headers: {
         Accept: "application/json",
@@ -164,11 +153,11 @@ const getCities = async (city) => {
       },
     }
   );
-  const cities= await result.json();
-  cities.forEach((city)=>{
+  const cities = await result.json();
+  cities.forEach((city) => {
     const option = document.createElement("option");
-    option.innerHTML=city.city_name;
-    option.setAttribute("value",city.city_name);
+    option.innerHTML = city.city_name;
+    option.setAttribute("value", city.city_name);
     citysel.appendChild(option);
   });
 };
@@ -177,12 +166,12 @@ window.onload = (event) => {
   getCountries();
 };
 
-countrysel.addEventListener("change",()=>{
+countrysel.addEventListener("change", () => {
   statesel.innerHTML = `<option value="">Please Select State</option>`;
   citysel.innerHTML = `<option value="">Please Select City</option>`;
   getStates(countrysel.value);
-})
-statesel.addEventListener("change",()=>{
+});
+statesel.addEventListener("change", () => {
   citysel.innerHTML = `<option value="">Please Select City</option>`;
   getCities(statesel.value);
-})
+});

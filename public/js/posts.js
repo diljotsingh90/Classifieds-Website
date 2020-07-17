@@ -1,4 +1,4 @@
-async function toggleFav(postId,e){
+async function toggleFav(csrf,postId,e){
     console.log(postId);
    const result =await fetch("/addFavorite",{
         method:"POST",
@@ -6,7 +6,8 @@ async function toggleFav(postId,e){
             "Content-Type": "application/JSON",
         },
         body:JSON.stringify({
-            postId:postId
+            postId:postId,
+            _csrf:csrf
         })
     })
     

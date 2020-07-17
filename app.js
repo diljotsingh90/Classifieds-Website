@@ -5,7 +5,7 @@ const bodyparser = require("body-parser");
 var randomstring = require("randomstring");
 const sequelize = require("./util/database");
 
-
+const csrf = require("csurf");
 const User = require("./models/user");
 const Post = require("./models/post");
 const Favorite = require("./models/favorite");
@@ -15,6 +15,9 @@ const postRoutes = require("./routes/post");
 var session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
 var multer = require("multer");
+
+const csrfProtection = csrf();
+
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyparser.json());
@@ -47,11 +50,11 @@ app.use(
 
 //session handling
 var options = {
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "admin",
-  database: "session_test",
+  host: process.env.HOST,
+  port: process.env.PORT,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
   clearExpired: true,
   checkExpirationInterval: 900000,
   expiration: 86400000,
@@ -68,7 +71,7 @@ app.use(
     saveUninitialized: false,
   })
 );
-
+app.use(csrfProtection);
 app.use((req, res, next) => {
   // throw new Error('Sync Dummy');
   if (!req.session.user) {
@@ -92,7 +95,10 @@ app.use((req, res, next) => {
       next(new Error(err));
     });
 });
-
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 app.use("/auth", authRoutes);
 app.use(postRoutes);
 
@@ -128,7 +134,7 @@ sequelize
   // .sync({ force: true })
   .sync()
   .then(() => {
-    app.listen(3000);
+    app.listen(process.env.DB_PORT);
   })
   .catch((err) => {
     console.log(err);

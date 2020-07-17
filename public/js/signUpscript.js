@@ -105,29 +105,3 @@ function submitForm(e) {
 }
 sButton.addEventListener("click", submitForm);
 
-async function onSignIn (googleUser) {
-  const idToken =googleUser.getAuthResponse().id_token;
-
-  var profile = googleUser.getBasicProfile();
-  
-  const name = profile.getName();
-  
- const email = profile.getEmail();
-  
-   try{ result = await fetch("/auth/logIn",{
-    method:"POST",
-    headers:{
-      'Content-Type': 'application/json',
-    },
-    body:JSON.stringify({
-      "googleIdToken":idToken,
-      "username":name,
-      "email":email,
-    })
-  });
-  window.location.replace("/");
-}
-catch(err){
-  console.log(err);
-}
-}

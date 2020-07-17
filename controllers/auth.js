@@ -2,8 +2,8 @@ const e = require("express");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID= "401985229551-dqpv5920kik69iefs4scrdnns5p0kh5a.apps.googleusercontent.com";
-const client = new OAuth2Client(CLIENT_ID);
+
+const client = new OAuth2Client(process.env.CLIENT_ID);
 module.exports.getNewUser = (req, res, next) => {
   res.render("auth/signUp", {
     pageTitle: "SignUp",
@@ -12,6 +12,7 @@ module.exports.getNewUser = (req, res, next) => {
   });
 };
 module.exports.postSignUp = async (req, res, next) => {
+  try{
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
@@ -33,17 +34,18 @@ module.exports.postSignUp = async (req, res, next) => {
     idExists = await User.findByPk(id);
   } while (idExists);
   const hashedpassword = await bcrypt.hash(password, 12);
-  User.create({
+  await User.create({
     id: id,
     username: username,
     password: hashedpassword,
     email: email,
     mobile: mobile,
   })
-    .then((result) => {
       return res.redirect("/auth/logIn");
-    })
-    .catch((err) => next(err));
+    }
+    catch(err){
+      next(err);
+    }
 };
 
 module.exports.getLogin = (req, res, next) => {
@@ -61,7 +63,7 @@ module.exports.postLogin = async (req, res, next) => {
     if(req.body.googleIdToken){
       const ticket = await client.verifyIdToken({
         idToken: req.body.googleIdToken,
-        audience: CLIENT_ID,  
+        audience: process.env.CLIENT_ID,  
     });
     const payload = ticket.getPayload();
     const userid = payload['sub'];
