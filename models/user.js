@@ -17,11 +17,9 @@ const User = sequelize.define("user", {
   },
   mobile: {
     type: Sequelize.BIGINT(10),
-    allowNull: false,
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
 });
 

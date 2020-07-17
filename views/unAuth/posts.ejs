@@ -6,11 +6,27 @@
   <body>
     <%- include("../include/navigation") %>
     <div class="posts">
+      <% if (posts.length==0) { %>
+       <p>No Posts found</p>
+      <% } else { %>
       <% posts.forEach(post=>{ %>
         
-          <a class="card" href="/post/<%= post.id %> ">
+          <div class="card"  >
+            <% if(typeof user !== 'undefined') {%>
+              <button class="fav <% if (post.isfav) { %>
+               isfav
+              <% } %>"onclick="toggleFav(<%= post.id %>,this)" class="fav-btn">
+                <i class="fa fa-heart fa-1x"></i>
+              </button>
+            
+             
+            <% } %>
+            <a href="/post/<%= post.id %>">
           <div class="leading">
-            <img src="<%= post.imageUrl%>" alt="<%= post.title %> ">
+             
+                
+                <img src="/<%= post.imageUrl[0]%>" alt="<%= post.title %>">
+              
             
           </div>
           <div class="trailing">
@@ -18,7 +34,10 @@
               <%= post.title %> 
             </h2>
             <p class="location-p">
-            <i class="fa fa-map-marker-alt fa-1x"></i>  <%= post.location %> 
+            <i class="fa fa-map-marker-alt fa-1x"></i>  <%= post.area%>,
+            <%= post.city %>,
+            <%= post.state %>
+            <%= post.country %>.  
             </p>
             <small class="post-price">
               ₹ <%= post.price %> 
@@ -26,8 +45,9 @@
             <p class="desc"><%= post.description.substring(0,Math.min(130,post.description.length )) %> </p>
           </div>
         </a>
-          
-      <% }) %> 
+          </div>
+      <% }) }%> 
     
     </div>
+    <script src="js/posts.js"></script>
     <%- include("../include/ending") %>

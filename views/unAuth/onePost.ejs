@@ -6,30 +6,52 @@
   <body>
     <%- include("../include/navigation") %>
     <div class="post-item">
-            <img src="<%= post.imageUrl%>" alt="<%= post.title %> ">
-           
+      <% if(typeof user !== 'undefined') {%>
+        <button class="fav <% if (post.isfav) { %>
+         isfav
+        <% } %>"onclick="toggleFav(<%= post.id %>,this)" class="fav-btn">
+          <i class="fa fa-heart fa-1x"></i>
+        </button>
+        <% } %>
+        <div class="image-carousel">
+        <% post.imageUrl.forEach((imageUrl,index) => { if(index!=post.imageUrl.length-1){ %>
+          <div class="item <% if (index==0) { %>active<% } %>" onclick="setActive(this)">
+          <img src="/<%= imageUrl%>" alt="<%= post.title %>">
+        </div>
+        <%} }) %>
+      </div>
+            <hr>
+           <div class="row">
             <h2 class="post-title">
               <%= post.title %> 
             </h2>
-            <small><%=post.createdAt %> </small>
             <p class="post-price">
               ₹ <%= post.price %> 
             </p>
-            <p class="desc"><%= post.description %> </p>
+          </div>
+            <small><i class="fa fa-calendar fa-1x"></i>       <%=post.createdAt %> </small>
             
+            <p class="desc"><%= post.description %> </p>
+            <hr>
+            <div class="row">
             <div class="card">
             <p class="location-p">
-              <i class="fa fa-map-marker-alt fa-1x"></i>  <%= post.location %> 
+              <i class="fa fa-map-marker-alt fa-1x"></i>  <%= post.area%>,
+              <%= post.city %>,
+              <%= post.state %>,
+              <%= post.country %>.  
               </p>
               <small>Category: <%= post.category %> </small>
             </div>
-            <div class="card">
-            <small><%= post.id %> </small>
-            <p>By: <%= post.username %> </p>
-            <p>+91-8888888888</p>
-          </div>
             
-    
-    </div>
-    
+            <div class="card">
+            <small>#<%= post.id %> </small>
+            <p>By: <%= post.username %> </p>
+            <p>Contact:
+              +91-8888888888</p>
+          </div>
+        </div>
+      </div>
+    <script src="/js/posts.js"></script>
+    <script src="/js/onePost.js"></script>
     <%- include("../include/ending") %>

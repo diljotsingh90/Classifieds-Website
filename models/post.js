@@ -19,10 +19,23 @@ const Post = sequelize.define("post", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  location: {
+  area: {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  city: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  state: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  country: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,

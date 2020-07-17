@@ -2,17 +2,48 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const bodyparser = require("body-parser");
-
+var randomstring = require("randomstring");
 const sequelize = require("./util/database");
+
+
 const User = require("./models/user");
 const Post = require("./models/post");
+const Favorite = require("./models/favorite");
+const authRoutes = require("./routes/auth");
+const postRoutes = require("./routes/post");
 
 var session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
-
+var multer = require("multer");
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, randomstring.generate(7)+ "-" + file.originalname.trim());
+  },
+});
+const fileFiltr = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  }
+  else{
+    cb(null,false);
+  }
+};
+app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFiltr }).array("imageUrl", 3)
+);
 
 //session handling
 var options = {
@@ -61,9 +92,6 @@ app.use((req, res, next) => {
       next(new Error(err));
     });
 });
-// all routes
-const authRoutes = require("./routes/auth");
-const postRoutes = require("./routes/post");
 
 app.use("/auth", authRoutes);
 app.use(postRoutes);
@@ -71,6 +99,7 @@ app.use(postRoutes);
 app.use((req, res, next) => {
   res.render("error404", {
     pageTitle: "Error 404",
+    user: req.user,
   });
 });
 
@@ -79,7 +108,14 @@ Post;
 User.hasMany(Post, {
   onDelete: "cascade",
 });
+
 Post.belongsTo(User);
+Post.belongsToMany(User, {
+  through: Favorite,
+});
+User.belongsToMany(Post, {
+  through: Favorite,
+});
 sequelize
   .authenticate()
   .then(() => console.log("Connection has been established successfully."))
@@ -89,7 +125,7 @@ sequelize
   });
 
 sequelize
-  //\\.sync({ force: true })
+  // .sync({ force: true })
   .sync()
   .then(() => {
     app.listen(3000);
@@ -104,5 +140,6 @@ app.use((error, req, res, next) => {
 
   res.status(500).render("error500", {
     pageTitle: "Error 500",
+    user: req.user,
   });
 });

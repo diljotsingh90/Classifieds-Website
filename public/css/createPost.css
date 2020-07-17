@@ -37,7 +37,7 @@ h2 {
 }
 
 .form-control input,
-textarea {
+textarea,select {
   border: 2px solid #f0f0f0;
   border-radius: 4px;
   display: block;
@@ -45,6 +45,9 @@ textarea {
   padding: 10px;
   font-size: 14px;
   font-family: "Montserrat", "sans-serif";
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
 }
 
 .form-control input:focus {
@@ -62,7 +65,13 @@ textarea {
 .form-control.success textarea {
   border-color: var(--success-color);
 }
+.form-control.success select {
+  border-color: var(--success-color);
+}
 
+.form-control.error select {
+  border-color: var(--error-color);
+}
 .form-control.error input {
   border-color: var(--error-color);
 }

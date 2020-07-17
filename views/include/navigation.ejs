@@ -6,6 +6,9 @@
     <li class="nav-bar-item">
       <a <% if( pageTitle==="Create Post"){ %>class= "active" <% } %> href="/create">Create Post</a>
       </li>
+      <li class="nav-bar-item">
+        <a <% if( pageTitle==="My Favorites"){ %>class= "active" <% } %> href="/favorites">My Favorites</a>
+        </li>
     <% if(typeof user === 'undefined') {%>
       <li class="nav-bar-item">
         <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="/auth/LogIn">Log In</a>
@@ -23,6 +26,17 @@
       </li>
  
 <% } %>
+<li class="nav-bar-item">
+  <form class="search" action="/find" method="POST">
+    <input type="text" name="word" placeholder="Search"
+    value="<% if (typeof search!=="undefined") { %><%= search %><% } %>">
+    <% if (typeof search!=="undefined") { %>
+      <a href="/" id="clear-btn">x</a>
+    <% } %> 
+    <button type="submit" id="search-btn"><i class="fa fa-search fa-1x"></i></button>
+  </form>
+  
+  </li>
   </ul>
   <ul class="nav-bar-list-small">
       <button id="menu-toggle">
@@ -37,6 +51,9 @@
     <li class="nav-bar-item">
       <a <% if( pageTitle==="Create Post"){ %>class= "active" <% } %> href="/create">Create Post</a>
       </li>
+      <li class="nav-bar-item">
+        <a <% if( pageTitle==="My Favorites"){ %>class= "active" <% } %> href="/favorites">My Favorites</a>
+        </li>
     <% if(typeof user === 'undefined') {%>
       <li class="nav-bar-item">
         <a <% if( pageTitle==="Log In"){ %>class= "active"<% }%> href="/auth/LogIn">Log In</a>
@@ -53,6 +70,17 @@
         <a <% if( pageTitle==="User's Zone"){ %>class= "active" <% } %> href="/mine"><%= user.username %>'s Zone </a>
         </li>
   <% } %>
+  <li class="nav-bar-item">
+    <form class="search" action="/find" method="POST">
+      <input type="text" name="word" autocomplete="off" placeholder="Search"
+      value="<% if (typeof search!=="undefined") { %><%= search %><% } %>">
+      <% if (typeof search!=="undefined") { %>
+        <a href="/" id="clear-btn">x</a>
+      <% } %> 
+      <button type="submit" id="search-btn"><i class="fa fa-search fa-1x"></i></button>
+    </form>
+    
+    </li>
   </div>
   </ul>
 </div>
